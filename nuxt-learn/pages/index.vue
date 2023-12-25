@@ -1,9 +1,9 @@
 <template>
   <div clas="app">
     <SearchInput/>
-    <maiin>
+    <main>
       <ul>
-      <li v-for="p in data" :key="p.id" class="item flex">
+      <li v-for="p in data" :key="p.id" class="item flex" @click="moveToDetailPage(p.id)">
         <img :src="p.imageUrl" :alt="p.name" class="product-image"/>
         <p>{{ p.name }}</p>
         <span>{{ p.price }}</span>
@@ -12,12 +12,13 @@
     <div class="cart-wrapper">
       <button class="btn" @click="routeToCartPage">장바구니 바로가기</button>
     </div>
-    </maiin>
+  </main>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAsyncData } from 'nuxt/app';
+import { useRouter } from 'vue-router';
 import SearchInput from '~/components/SearchInput.vue';
 interface Product {
   id: number;
@@ -25,7 +26,7 @@ interface Product {
   name: string;
   price: string;
 };
-
+const router = useRouter();
 const { data , pending } = await useAsyncData<Product[]>(
   'products',
   async () => { 
@@ -36,6 +37,10 @@ const { data , pending } = await useAsyncData<Product[]>(
 )
 const routeToCartPage = () => {
 
+}
+
+const moveToDetailPage = (id:number) => {
+  router.push(`detail/${id}`)
 }
 
 </script>
