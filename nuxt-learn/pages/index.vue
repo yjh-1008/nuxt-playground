@@ -47,8 +47,9 @@ const moveToDetailPage = (id:number) => {
 
 
 const onSearch = async() => {
-  const ret = await fetchProeuctsByKeyword(searchValue.value);
-  console.log(ret);
+  const ret:Product[] = await fetchProeuctsByKeyword(searchValue.value);
+  ret.forEach((v) => v.imageUrl = `https://picsum.photos/id/${v.id}/640/480`);
+  data.value = ret;
 
 }
 

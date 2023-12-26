@@ -14,10 +14,11 @@ export const fetchProeuctById = async(id:string) => {
   return ret.data;
 }
 
-export const fetchProeuctsByKeyword = (keyword:string) => {
-  return instance.get(`/products`,{
+export const fetchProeuctsByKeyword = async (keyword:string) => {
+  const ret = await instance.get(`/products`,{
     params: {
       name_like: keyword
     }
   });
+  return ret.data;
 }
