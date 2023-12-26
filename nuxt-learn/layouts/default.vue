@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <!-- <h1> <NuctLink to="/">{{ route.name }} 페이지</NuctLink></h1> -->

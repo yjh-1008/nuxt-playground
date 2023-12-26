@@ -1,6 +1,6 @@
 <template>
   <div clas="app">
-    <SearchInput/>
+    <SearchInput v-model="searchValue" @search="onSearch"/>
     <main>
       <ul>
       <li v-for="p in data" :key="p.id" class="item flex" @click="moveToDetailPage(p.id)">
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { useAsyncData } from 'nuxt/app';
 import { useRouter } from 'vue-router';
+import {fetchProeuctsByKeyword} from '@/api/index';
 import SearchInput from '~/components/SearchInput.vue';
 interface Product {
   id: number;
@@ -26,6 +27,7 @@ interface Product {
   name: string;
   price: string;
 };
+const searchValue = ref<string>('');
 const router = useRouter();
 const { data , pending } = await useAsyncData<Product[]>(
   'products',
@@ -41,6 +43,13 @@ const routeToCartPage = () => {
 
 const moveToDetailPage = (id:number) => {
   router.push(`detail/${id}`)
+}
+
+
+const onSearch = async() => {
+  const ret = await fetchProeuctsByKeyword(searchValue.value);
+  console.log(ret);
+
 }
 
 </script>
