@@ -13,6 +13,7 @@ import { useLazyAsyncData } from 'nuxt/app';
 import { useRoute, useRouter } from 'vue-router';
 import {fetchProeuctById} from '../../api/index';
 import {useMainStore} from '@/stores/index';
+import { unref } from 'vue';
 interface Product {
   id: number;
   imageUrl: string;
@@ -30,6 +31,7 @@ const { data , pending } =  useLazyAsyncData<any>(
 });
 
 const addToCart = () => {
-  
+  store.addCartItem(unref(data));
+  router.push('/cart');
 }
 </script>
