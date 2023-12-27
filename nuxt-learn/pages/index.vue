@@ -11,7 +11,7 @@
     </ul>
     <div class="cart-wrapper">
       <button class="btn" @click="routeToCartPage">장바구니 바로가기</button>
-    </div>
+    </div>>
   </main>
   </div>
 </template>
@@ -38,7 +38,7 @@ const { data , pending } = await useAsyncData<Product[]>(
   }
 )
 const routeToCartPage = () => {
-
+  router.push(`/cart`)
 }
 
 const moveToDetailPage = (id:number) => {

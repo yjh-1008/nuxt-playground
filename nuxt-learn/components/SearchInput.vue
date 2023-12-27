@@ -1,7 +1,6 @@
 <template>
 <div class="input-wrapper flex">
   <input type="text" :value="modelValue" @change="onChange" class="search-input" />
-  <button class="btn" @click="emits('search')">search button</button>
 </div>
 </template>
 
