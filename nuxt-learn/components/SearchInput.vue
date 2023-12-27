@@ -13,7 +13,6 @@ const props = defineProps<{
 }>()
 
 const onChange = (e:Event) => {
-  console.log((e.target as HTMLInputElement).value);
   emits('update:modelValue',(e.target as HTMLInputElement).value); 
 }
 </script>
