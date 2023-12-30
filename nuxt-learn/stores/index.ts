@@ -16,14 +16,12 @@ export const useMainStore = defineStore('main', {
       this.cartItems.push(newCartItem);
     },
     async FETCH_CART_ITEMS() {
-      console.log('here');
       const ret= await fetchCartItems();
     },
     setCartItems(cartItems:Product[]) {
       this.cartItems = cartItems;
     },
     async nuxtServerInit(storeContext: any, nuxtContext:any) {
-      console.log('here');
       await storeContext.FETCH_CART_ITEMS();
       if (process.server) {
         const { req, res, beforeNuxtRender } = nuxtContext;
