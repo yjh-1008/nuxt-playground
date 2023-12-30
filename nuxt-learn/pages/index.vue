@@ -21,12 +21,7 @@ import { useAsyncData } from 'nuxt/app';
 import { useRouter } from 'vue-router';
 import {fetchProeuctsByKeyword} from '@/api/index';
 import SearchInput from '~/components/SearchInput.vue';
-interface Product {
-  id: number;
-  imageUrl: string;
-  name: string;
-  price: string;
-};
+import { type Product } from '@/types/types';
 const searchValue = ref<string>('');
 const router = useRouter();
 const { data , pending } = await useAsyncData<Product[]>(
@@ -42,6 +37,7 @@ const routeToCartPage = () => {
 }
 
 const moveToDetailPage = (id:number) => {
+  console.log(id);
   router.push(`detail/${id}`)
 }
 

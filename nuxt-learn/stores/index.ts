@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
+import { type Product } from '@/types/types';
+import { fetchCartItems } from '~/api';
+export const FETCH_CART_ITEMS = 'FETCH_CART_ITEMS';
 export type RootState = {
-  cartItems: any[];
+  cartItems: Product[];
 };
 export const useMainStore = defineStore('main', {
   state: () =>
@@ -8,8 +11,15 @@ export const useMainStore = defineStore('main', {
     cartItems: [],
   } as RootState),
   actions: {
-    addCartItem(cartItem: any) {
-      this.cartItems.push(cartItem);
+    addCartItem(cartItem: Product) {
+      const newCartItem = {...cartItem, imageUrl :`https://picsum.photos/id/${cartItem.id}/640/480`}
+      this.cartItems.push(newCartItem);
+    },
+    async [FETCH_CART_ITEMS]() {
+      const ret= await fetchCartItems();
+    },
+    setCartItems(cartItems:Product[]) {
+      this.cartItems = cartItems;
     }
   },
 })
