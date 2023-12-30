@@ -20,7 +20,6 @@ const router = useRouter();
 const { data , pending } =  useLazyAsyncData<Product>(
   'product', async () => {
   let ret = await fetchProeuctById(route.params.id as string);
-  console.log(route.params, ret);
   ret['imageUrl'] = `https://picsum.photos/id/${ret.id}/640/480`
   return ret;
 });

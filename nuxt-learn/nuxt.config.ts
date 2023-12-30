@@ -27,9 +27,13 @@ export default defineNuxtConfig({
   css: ['@/assets/css/reset.css'],
   plugins: [],
   components: true,
+  rootRules: {
+    '/*': {prerender: true},
+  },
 },
 
 modules: [
   '@pinia/nuxt',
 ],
+
 })

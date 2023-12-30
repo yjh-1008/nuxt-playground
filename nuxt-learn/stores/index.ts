@@ -15,11 +15,19 @@ export const useMainStore = defineStore('main', {
       const newCartItem = {...cartItem, imageUrl :`https://picsum.photos/id/${cartItem.id}/640/480`}
       this.cartItems.push(newCartItem);
     },
-    async [FETCH_CART_ITEMS]() {
+    async FETCH_CART_ITEMS() {
+      console.log('here');
       const ret= await fetchCartItems();
     },
     setCartItems(cartItems:Product[]) {
       this.cartItems = cartItems;
+    },
+    async nuxtServerInit(storeContext: any, nuxtContext:any) {
+      console.log('here');
+      await storeContext.FETCH_CART_ITEMS();
+      if (process.server) {
+        const { req, res, beforeNuxtRender } = nuxtContext;
+      }
     }
   },
 })

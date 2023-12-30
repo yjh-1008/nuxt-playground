@@ -258,6 +258,12 @@
       "name": "Intelligent Concrete Salad",
       "price": "501.00",
       "imageUrl": "https://picsum.photos/id/27/640/480"
+    },
+    {
+      "id": 28,
+      "name": "Refined Fresh Chicken",
+      "price": "209.00",
+      "imageUrl": "https://picsum.photos/id/0/640/480"
     }
   ]
 }

@@ -1,17 +1,7 @@
 <template>
   <div class="container">
     <h1>카트페이지</h1>
-    <div class="list-wrapper">
-      <ul>
-        <li v-for="item in store.cartItems" :key="item.id" class="list-item">
-          <img :src="item.imageUrl" :alt="item.name" class="thumbnail">
-          <div class="description">
-            <p>{{ item.name }}</p>
-            <span>{{ item.price }}</span>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <CartList />
     <div>
       <button type="button" class="extra-panel">구매하기</button>
     </div>
@@ -19,14 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import {useMainStore} from '@/stores/index';
+import CartList from '@/components/CartList.vue';
 import { useAsyncData } from 'nuxt/app';
-import { FETCH_CART_ITEMS } from '~/stores';
-const store = useMainStore();
 
-useAsyncData('cartProducts',async () => {
-  await store.FETCH_CART_ITEMS;
-});
 </script>
 
 <style scoped>
