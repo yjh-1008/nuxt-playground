@@ -25,7 +25,6 @@ export const createCartItem = (cartItem:Product) => {
 
 export const fetchCartItems= async () => {
   const ret =  await instance.get('/carts');
-  console.log(ret);
   const store = useMainStore();
   store.setCartItems(ret?.data.map((v:Product) => ({...v, imageUrl :`https://picsum.photos/id/${v.id}/640/480`})));
 }

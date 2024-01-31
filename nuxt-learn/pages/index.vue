@@ -37,7 +37,6 @@ const routeToCartPage = () => {
 }
 
 const moveToDetailPage = (id:number) => {
-  console.log(id);
   router.push(`detail/${id}`)
 }
 
