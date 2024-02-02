@@ -1,23 +1,27 @@
 <template>
-  <div>
-    <div class="champion-container">
-      <template v-for="champ in data" :key="champ.id">
-      <ChampionInfo :info="champ"></ChampionInfo>
-      </template>
-    </div>
+  <div class="champion-view">
+    <form>
+      <CommonInput v-model="searchText" />
+      <div class="champion-container">
+        <template v-for="champ in filterData" :key="champ.id">
+        <ChampionInfo :info="champ"></ChampionInfo>
+        </template>
+      </div>
+    </form>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {type ChampInfoJSON, type Champion} from '@/utils/types/champions';
-const config = useRuntimeConfig()
+import CommonInput from '~/components/CommonInput.vue';
+const config = useRuntimeConfig();
 const champSort = (a:Champion, b:Champion) => {
   return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
 };
 
-const {data , error, refresh, status} = await useAsyncData<Champion[]>('champions',
+const {data, error, refresh, status} = await useAsyncData<Champion[]>('champions',
  async ():Promise<any[]> => {
-  const response:any = await $fetch("https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion.json");
+  const response:any = await $fetch("https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion.json?position=top");
   const data:ChampInfoJSON= response?.data;
   const names=Object.entries(data).map(v => v[1]).map(d => d.name);
   const newData:Champion[] = Object.entries(data).map(v => v[1])
@@ -25,15 +29,25 @@ const {data , error, refresh, status} = await useAsyncData<Champion[]>('champion
  },
 )
 
-// const filterData = computed(() => {
-//   if(data.value === null) return [];
-// })
-// const champion = ref<Champion | undefined>(data.value?.data);
+const filterData = computed<any>(() => {
+  console.log(data.value);
+  if(searchText.value === '') return data.value;
+  return data.value?.filter((c:Champion) => c?.name.includes(searchText.value));
+})
 
+const searchText = ref<string>('');
+const onSearch = () => {
+  
+}
 </script>
 
 <style>
+.champion-view {
+
+  padding: 0 20%;
+}
 .champion-container {
+  display: flex;
   border:1px solid black;
   background-color: #31313C;
   overflow-y: auto;

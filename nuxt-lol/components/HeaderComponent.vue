@@ -21,6 +21,7 @@ header {
   height: 50px;
   gap: 1%;
   padding: 5px;
+  min-width: 1000px;
   background-color: rgb(33 58 150);
 }
 

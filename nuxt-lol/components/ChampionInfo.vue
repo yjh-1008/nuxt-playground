@@ -25,5 +25,8 @@ const imageURL = computed(() => `https://ddragon.leagueoflegends.com/cdn/14.2.1/
   height: 70px;
   align-items: center;
   justify-content: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
 }
 </style>
