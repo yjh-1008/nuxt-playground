@@ -21,7 +21,7 @@ const champSort = (a:Champion, b:Champion) => {
 
 const {data, error, refresh, status} = await useAsyncData<Champion[]>('champions',
  async ():Promise<any[]> => {
-  const response:any = await $fetch("https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion.json?position=top");
+  const response:any = await $fetch("https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion.json");
   const data:ChampInfoJSON= response?.data;
   const names=Object.entries(data).map(v => v[1]).map(d => d.name);
   const newData:Champion[] = Object.entries(data).map(v => v[1])
@@ -54,7 +54,8 @@ const onSearch = () => {
   width: 500px;
   height: 50vh;
   display: grid;
-  justify-content: center;
+  place-items: center;
   grid-template-columns: repeat(5, 1fr);
+  /* overflow-x: hidden; */
 }
 </style>

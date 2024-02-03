@@ -1,7 +1,7 @@
 <template>
   <div class="search-input-wrapper">
     <i class="search-icon" />
-    <input class="search-input" type="text" v-model="text" placeholder=" 명을 입력해주세요." @enter=" () =>emits('onSearch')"  />
+    <input class="search-input" type="text" v-model="text" placeholder=" 명을 입력해주세요." @keyup.enter="emits('onSearch')"  />
   </div>
 
 </template>

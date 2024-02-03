@@ -10,10 +10,13 @@
 
 <script setup lang="ts">
 import { useAsyncData, useRuntimeConfig } from 'nuxt/app';
-import axios from "axios";
+// import axios from "axios";
 import CommonInput from '@/components/CommonInput.vue';
 import useApi from "@/utils/composables/useApi";
-import { getUserInfoByName } from '@/server/api/summoner';
+import axios from 'axios';
+const route = useRoute();
+const router= useRouter();
+// import { getUserInfoByName } from '@/server/api/summoner';
 // import rotations from "@/server/api/champions";
 // const { data, pending, error, refresh, status } = await useApi(`platform/v3/champion-rotations`);
 // platform/v3/champion-rotations?api_key=RGAPI-94d60f63-c25e-4698-9c2d-c4880145c452;
@@ -21,8 +24,13 @@ import { getUserInfoByName } from '@/server/api/summoner';
 // })
 const searchText = ref<string>('');
 
+
 const onSearch = async() => {
-  console.log(await getUserInfoByName('주노듀노'));
+  // router.push(`/summoner/kr/${searchText.value}`);
+  // const response = await axios.get(`https://developer.riotgames.com/apis#account-v1/`)
+  // const response = await useApi(`summoner/v4/summoners/by-name/${searchText.value}-`);
+  const response = await useApi('summoner/v4/summoners/by-name/hide on bush')
+  console.log(response);
 }
 </script>
 

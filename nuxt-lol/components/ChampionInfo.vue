@@ -1,6 +1,6 @@
 <template>
   <!-- TODO : 챔피언 클릭시 해당 챔피언 상세보기 페이지로 이동 -->
-  <div class="item" @click="">
+  <div class="item" @click="onChampClick">
     <img style="width:60px; hieght: 6a0px" :src="imageURL" />
     <div class="name">  {{ info.name }}</div>
   </div>
@@ -11,8 +11,12 @@ import {type Champion} from '@/utils/types/champions';
 const props = defineProps<{
   info: Champion,
 }>();
+const router = useRouter();
+const imageURL = computed(() => `https://ddragon.leagueoflegends.com/cdn/14.2.1/img/champion/${props.info.image.full}`);
 
-const imageURL = computed(() => `https://ddragon.leagueoflegends.com/cdn/14.2.1/img/champion/${props.info.image.full}`)
+const onChampClick = () => {
+  router.push(`champions/${props.info.id}`);
+}
 </script>
 
 <style scoped>
@@ -24,8 +28,9 @@ const imageURL = computed(() => `https://ddragon.leagueoflegends.com/cdn/14.2.1/
   width: 60px;
   height: 70px;
   align-items: center;
-  justify-content: center;
-  position: relative;
+  cursor: pointer;
+  /* justify-content: right; */
+  /* position: relative; */
   top: 50%;
   left: 50%;
 }

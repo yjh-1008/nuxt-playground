@@ -35,3 +35,28 @@ interface ChampInfo {
   readonly difficulty: number,
   readonly magic: number,
 }
+
+export interface DetailChampInfo {
+  readonly allytips: Array<string>,
+  readonly blurb: string,
+  readonly enemytips: Array<string>
+  readonly id: string,
+  readonly image: Image,
+  readonly info: ChampInfo,
+  readonly key: string,
+  readonly lore: string,
+  readonly name: string,
+  readonly partype: string,
+  readonly passive: Skill,
+  readonly recomended: Array<string>,
+  readonly skins: Array<Object>,
+  readonly stats: Array<Object>,
+  readonly tags: Array<string>
+}
+
+
+interface Skill {
+  description: string,
+  iamge: Image,
+  name: string,
+}
