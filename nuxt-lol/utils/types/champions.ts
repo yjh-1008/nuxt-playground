@@ -19,7 +19,7 @@ export interface ChampInfoJSON {
   readonly version: string,
 }
 
-interface Image{
+export interface Image{
   readonly full: string,
   readonly group: string,
   readonly h: number,
@@ -50,6 +50,7 @@ export interface DetailChampInfo {
   readonly passive: Skill,
   readonly recomended: Array<string>,
   readonly skins: Array<Object>,
+  readonly spells: Array<Object>,
   readonly stats: Array<Object>,
   readonly tags: Array<string>
 }
@@ -57,6 +58,6 @@ export interface DetailChampInfo {
 
 interface Skill {
   description: string,
-  iamge: Image,
+  image: Image,
   name: string,
 }

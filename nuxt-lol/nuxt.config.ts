@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.LOL_API_KEY,
+      docURL: process.env.LOL_DOC_URL,
     },
   },
 })
