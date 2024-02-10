@@ -9,15 +9,5 @@
 
 <script setup lang="ts">
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import '@/assets/css/basic_set.css'
 </script>
-
-<style> 
-body {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-}
-</style>

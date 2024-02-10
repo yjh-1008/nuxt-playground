@@ -1,7 +1,7 @@
 <template>
   <div class="champion-view">
     <form>
-      <CommonInput v-model="searchText" />
+      <CommonInput v-model="searchText" placeholder="챔피언 명을 입력해주세요." />
       <div class="champion-container">
         <template v-for="champ in filterData" :key="champ.id">
         <ChampionInfo :info="champ"></ChampionInfo>

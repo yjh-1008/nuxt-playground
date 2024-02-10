@@ -1,8 +1,10 @@
 <template>
   <div class="app">
     <main class="main">
-      <CommonInput v-model="searchText" @on-search="onSearch"/>
-      <button @click="onSearch" >검색</button>
+      <div class="search-container">
+        <CommonInput v-model="searchText" @on-search="onSearch" placeholder="소환사 명과 태그를 입력해주세요. ex) hide on bush-KR1"/>
+        <!-- <div>{{ data === null? '' : data }}</div> -->
+      </div>
     </main>
 
   </div>
@@ -10,27 +12,41 @@
 
 <script setup lang="ts">
 import { useAsyncData, useRuntimeConfig } from 'nuxt/app';
-// import axios from "axios";
 import CommonInput from '@/components/CommonInput.vue';
 import useApi from "@/utils/composables/useApi";
-import axios from 'axios';
+import {useUserStore} from '@/stores/userStore';
+import {createInstance} from '@/utils/riotApis/index';
+interface User {
+  puuid: string,
+  gameName: string,
+  tagLIne: string,
+}
+const runtimeConfig = useRuntimeConfig();
+const userStore = useUserStore();
 const route = useRoute();
 const router= useRouter();
-// import { getUserInfoByName } from '@/server/api/summoner';
-// import rotations from "@/server/api/champions";
-// const { data, pending, error, refresh, status } = await useApi(`platform/v3/champion-rotations`);
-// platform/v3/champion-rotations?api_key=RGAPI-94d60f63-c25e-4698-9c2d-c4880145c452;
-// const { data, pending, error, refresh } = await useFetch('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations',{
-// })
+const instance = createInstance('https://asia.api.riotgames.com/riot/');
 const searchText = ref<string>('');
+const { data:rotation, pending, error, refresh, status } = await useApi(`platform/v3/champion-rotations`);
+
+// const searchText = ref<string>('');
 
 
 const onSearch = async() => {
-  // router.push(`/summoner/kr/${searchText.value}`);
-  // const response = await axios.get(`https://developer.riotgames.com/apis#account-v1/`)
-  // const response = await useApi(`summoner/v4/summoners/by-name/${searchText.value}-`);
-  const response = await useApi('summoner/v4/summoners/by-name/hide on bush')
-  console.log(response);
+  //TODO 이름 규칙 정규표현식
+  const {data} = await useFetch<User>('/api/user/info',{
+    method: 'get',
+    query: {
+      name : '주노듀노',
+      tag: 'kr1'
+    }
+  });
+  if(data.value !== null) {
+    console.log(data.value);
+    userStore.setPuuid(data.value.puuid)
+  }
+
+
 }
 </script>
 

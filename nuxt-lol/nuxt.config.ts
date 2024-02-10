@@ -2,7 +2,11 @@
 export default defineNuxtConfig({
   devtools: { 
     enabled: true,
-
+  },
+  css: ['@/assets/css/basic_set.css'],
+  modules: ['@pinia/nuxt'],
+  routeRules: {
+    '/api/**' :{cors: true},
   },
   runtimeConfig: {
     public: {

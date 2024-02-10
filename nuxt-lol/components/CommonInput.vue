@@ -1,7 +1,7 @@
 <template>
   <div class="search-input-wrapper">
     <i class="search-icon" />
-    <input class="search-input" type="text" v-model="text" placeholder=" 명을 입력해주세요." @keyup.enter="emits('onSearch')"  />
+    <input class="search-input" type="text" v-model="text" :placeholder="placeholder" @keyup.enter="emits('onSearch')"  />
   </div>
 
 </template>
@@ -10,6 +10,7 @@
 const emits = defineEmits(['update:modelValue','onSearch']);
 const props = defineProps<{
   modelValue: string,
+  placeholder: string,
 }>();
 const text = computed({
   get: () => props.modelValue,
@@ -19,11 +20,10 @@ const text = computed({
 
 <style scoped>
 .search-input-wrapper {
-  display: flex;
   padding-bottom: 1%;
   position: relative;
-  top: 4%;
-  left: 40%
+  margin: 0 auto;
+  width: 500px;
 }
 .search-icon {
   position: absolute;
