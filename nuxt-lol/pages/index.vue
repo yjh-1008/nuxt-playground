@@ -34,16 +34,18 @@ const { data:rotation, pending, error, refresh, status } = await useApi(`platfor
 
 const onSearch = async() => {
   //TODO 이름 규칙 정규표현식
+  const [name, tag] = searchText.value.split("-");
   const {data} = await useFetch<User>('/api/user/info',{
     method: 'get',
     query: {
-      name : '주노듀노',
-      tag: 'kr1'
+      name,
+      tag,
     }
   });
   if(data.value !== null) {
     console.log(data.value);
     userStore.setPuuid(data.value.puuid)
+    router.push(`/user/${data.value.puuid}`);
   }
 
 
