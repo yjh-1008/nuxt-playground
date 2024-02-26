@@ -30,7 +30,6 @@ const {data, error, refresh, status} = await useAsyncData<Champion[]>('champions
 )
 
 const filterData = computed<any>(() => {
-  console.log(data.value);
   if(searchText.value === '') return data.value;
   return data.value?.filter((c:Champion) => c?.name.includes(searchText.value));
 })

@@ -43,7 +43,6 @@ const onSearch = async() => {
     }
   });
   if(data.value !== null) {
-    console.log(data.value);
     userStore.setPuuid(data.value.puuid)
     router.push(`/user/${data.value.puuid}`);
   }
