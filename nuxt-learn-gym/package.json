@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxi build",
-    "dev": "nuxi dev",
+    "dev": "nuxt dev",
     "generate": "nuxi generate",
     "preview": "nuxi preview",
     "postinstall": "nuxi prepare",
@@ -31,6 +31,6 @@
     "nuxt-quasar-ui": "^2.0.7",
     "prettier": "^3.2.5",
     "typescript": "^5.4.3",
-    "vue-tsc": "^2.0.7"
+    "vue-tsc": "^1.8.22"
   }
 }
