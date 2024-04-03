@@ -13,6 +13,12 @@ import {useRoute} from 'vue-router';
 import type Summoner from '@/utils/types/summoner';
 const route = useRoute();
 const {id} = route.params;
+
+
+
+
+
+
 const iconUrl = computed(() => `${config.public.docURL}img/profileicon/${userData.value?.profileIconId}.png`);
 const config = useRuntimeConfig();
 const { data:userData, pending, error, refresh } = await useAsyncData<Summoner>(

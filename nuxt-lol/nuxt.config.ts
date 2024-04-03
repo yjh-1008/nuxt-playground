@@ -8,6 +8,14 @@ export default defineNuxtConfig({
   routeRules: {
     '/api/**' :{cors: true},
   },
+  nitro: {
+    devProxy: {
+      "/api/champ": {
+        target: "https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion.json",
+        changeOrigin: true,
+      }
+    }
+  },
   runtimeConfig: {
     public: {
       apiBase: process.env.LOL_API_KEY,

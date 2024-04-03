@@ -1,20 +1,19 @@
 <template>
   <div>
     <div class="header" >
-      <div class="champ-info-wrapper">
-      <img :src="imageURL" class="champ-profile"/>
-      <div class="info">
-        <div>{{ champInfo?.name }}</div>
-        <span>빌드 :</span> <span v-for="tag in champInfo?.tags">{{ tag }}&nbsp;</span>
-      </div>
-      <img :src="passive" alt="passive" class="skill"/>
-      <div v-for="(s,i) in skills" :key="s.url" class="skill-container" @mouseover="onVisible(i)" @mouseleave="onLeave(i)">
-        <label :for="s.url" class="dsecription" v-show="visibleDescription[i]">{{ s.description }}</label>
-        <img class="skill" :id="s.url" :src="s.url"/>
+        <div class="champ-info-wrapper">
+        <img :src="imageURL" class="champ-profile"/>
+        <div class="info">
+          <div>{{ champInfo?.name }}</div>
+          <span>빌드 :</span> <span v-for="tag in champInfo?.tags">{{ tag }}&nbsp;</span>
+        </div>
+        <img :src="passive" alt="passive" class="skill"/>
+        <div v-for="(s,i) in skills" :key="s.url" class="skill-container" @mouseover="onVisible(i)" @mouseleave="onLeave(i)">
+          <label :for="s.url" class="dsecription" v-show="visibleDescription[i]">{{ s.description }}</label>
+          <img class="skill" :id="s.url" :src="s.url"/>
+        </div>
       </div>
     </div>
-    </div>
-  
   </div>
 </template>
 
@@ -81,7 +80,7 @@ const onLeave = (idx: number) => {
 
 </script>
 
-<style scoped>
+<style>
 .skills {
   display: flex;
   gap: 20px;

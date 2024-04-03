@@ -1,13 +1,14 @@
 <template>
   <!-- TODO : 챔피언 클릭시 해당 챔피언 상세보기 페이지로 이동 -->
-  <div class="item" @click="onChampClick">
-    <img style="width:60px; hieght: 6a0px" :src="imageURL" />
+  <div class="item" @click="emtis('onClick')">
+    <img style="width:60px; height: 60px" :src="imageURL" />
     <div class="name">  {{ info.name }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {type Champion} from '@/utils/types/champions';
+const emtis = defineEmits(['onClick'])
 const props = defineProps<{
   info: Champion,
 }>();

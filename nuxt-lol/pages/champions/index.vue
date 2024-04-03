@@ -1,19 +1,39 @@
 <template>
   <div class="champion-view">
-    <form>
       <CommonInput v-model="searchText" placeholder="챔피언 명을 입력해주세요." />
+    <div class="champ-wrapper">
       <div class="champion-container">
         <template v-for="champ in filterData" :key="champ.id">
-        <ChampionInfo :info="champ"></ChampionInfo>
+        <ChampionInfo :info="champ" @onClick="detailChampInfo"></ChampionInfo>
         </template>
       </div>
-    </form>
+      <div class="detail_champ_info">
+        디테일한 챔피언 정보
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {type ChampInfoJSON, type Champion} from '@/utils/types/champions';
 import CommonInput from '~/components/CommonInput.vue';
+class Skill {
+  q: string;
+  w: string;
+  e: string;
+  r: string;
+  constructor(p:string, q: string, w:string, e:string, r:string) {
+    this.q= q;
+    this.e = e;
+    this.w= w;
+    this.r =r;
+  }
+}
+interface SkillInfo {
+  readonly url: string,
+  readonly description: string,
+}
+
 const config = useRuntimeConfig();
 const champSort = (a:Champion, b:Champion) => {
   return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
@@ -38,6 +58,26 @@ const searchText = ref<string>('');
 const onSearch = () => {
   
 }
+
+const detailChampInfo = async () => {
+  try {
+    const {data}:any = await $fetch(`https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion/Garen.json`);
+    console.log(data);
+    // champInfo.value = data[`${route.params.id}`];
+    // imageURL.value = `https://ddragon.leagueoflegends.com/cdn/14.2.1/img/champion/${champInfo.value?.image.full}`;
+
+    // skills.value = champInfo.value?.spells.map(v => {
+    //   // if(v.image === n) return;
+    //   const images: Image = v.image;
+    //   return {
+    //     url: `${runtimeConfig.public.docURL}img/spell/${v.image.full}`,
+    //     description: v.description,
+    //   }
+    // })
+  } catch(err) {
+    console.log(err);
+  }
+}
 </script>
 
 <style>
@@ -55,6 +95,17 @@ const onSearch = () => {
   display: grid;
   place-items: center;
   grid-template-columns: repeat(5, 1fr);
-  /* overflow-x: hidden; */
+  /* ove
+  rflow-x: hidden; */
+}
+
+.champ-wrapper {
+  display: flex;
+}
+
+.detail_champ_info {
+  width: 500px;
+  height: 50vh;
+  border: 1px solid black;
 }
 </style>
