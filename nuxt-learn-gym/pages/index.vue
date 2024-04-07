@@ -5,13 +5,26 @@
       <p class="q-mt-sm text-grey-8">웹개발 입문부터 실전까지 학습해보세요!</p>
     </div>
     <div class="row q-col-gutter-lg">
-      <div v-for="n in 3" :key="n" class="col-12 col-md-4 col-sm-6">
-        <course-card />
+      <div
+        v-for="{ courseSlug, title, subtitle, thumbnail, path } in courses"
+        :key="courseSlug"
+        class="col-12 col-md-4 col-sm-6"
+      >
+        <nuxt-link v-slot="{ navigate }" :to="`/course/${path}`">
+          <q-card
+            :title="title"
+            :sub-title="subtitle"
+            :tumbnail="thumbnail"
+            @click="navigate"
+          />
+        </nuxt-link>
       </div>
     </div>
   </q-page>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { courses } = useCourses();
+</script>
 
 <style></style>
