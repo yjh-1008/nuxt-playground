@@ -45,7 +45,7 @@
     <q-separator class="q-mb-lg" />
     <q-form class="q-gutter-y-md">
       <q-btn
-        label="수강완료"
+        label="수강완료1"
         class="full-width"
         color="green"
         unelevated
@@ -71,6 +71,7 @@
         unelevated
         @click="movePage(prevCourse.path)"
       />
+      <q-btn label="토글" color="primary" unelevated @click="toggleComplete" />
       <q-btn
         label="쿼리 추가"
         color="dark"
@@ -93,21 +94,58 @@
 const route = useRoute();
 const courseSlug = route.params.courseSlug as string;
 const { course, prevCourse, nextCourse } = useCourse(courseSlug);
-// console.log('[courseSlug].vue 컴포넌트 setup hooks');
-// const title = ref('');
+if (!course) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Course not found',
+    // fatal: true,
+    data: {
+      myCustomField: true,
+    },
+  });
+}
 definePageMeta({
   key: (route) => route.fullPath,
   // title: title.value, // 이렇게 하면 오류가 발생합니다.
   title: 'My home page',
   pageType: '',
-  keepalive: true,
+  // keepalive: true,
   alias: ['/lecture/:courseSlug'],
+  middleware: (route) => {
+    const courseSlug = route.params.courseSlug as string;
+    const { course } = useCourse(courseSlug);
+    if (!course) {
+      return abortNavigation({
+        statusCode: 404,
+        statusMessage: 'Course not found',
+        fatal: true,
+      });
+    }
+  },
+  validate: (route) => {
+    const courseSlug = route.params.courseSlug as string;
+    const { course } = useCourse(courseSlug);
+    if (!course) {
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'Course not found',
+        fatal: true,
+      });
+    }
+    return true;
+  },
 });
 
 const memo = ref('');
 const completed = ref(false);
 const movePage = async (path: string) => {
   await navigateTo(path);
+};
+
+const toggleComplete = () => {
+  // showError('에러가 발생 했습니다.');
+  $fetch('/api/error');
+  // throw createError('
 };
 </script>
 

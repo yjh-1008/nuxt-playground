@@ -1,9 +1,7 @@
 <template>
   <q-page>
     <div class="text-center q-xy-xl">
-      <div class="text-h4">
-        {{ $route.path }}
-      </div>
+      <page-title :title="$route.path" />
     </div>
   </q-page>
 </template>

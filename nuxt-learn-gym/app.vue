@@ -7,4 +7,6 @@
 <script setup lang="ts">
 // import type { LayoutKey } from '#build/types/layouts';
 // const layoutName = ref<LayoutKey>('default');
+// const nuxtApp = useNuxtApp();
+// nuxtApp.provide('hello', (msg: string) => `Hello ${msg}`);
 </script>
