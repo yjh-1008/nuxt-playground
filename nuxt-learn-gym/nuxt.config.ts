@@ -5,7 +5,11 @@ export default defineNuxtConfig({
     shim: true,
     typeCheck: true,
   },
-  modules: ['nuxt-quasar-ui'],
+  modules: [
+    'nuxt-quasar-ui',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+  ],
   quasar: {
     plugins: ['Notify'],
     config: {
@@ -21,5 +25,11 @@ export default defineNuxtConfig({
         imports: ['useI18n'],
       },
     ],
+  },
+  app: {
+    head: {
+      title: 'Nuxt 강의',
+      meta: [{ name: 'description', content: 'test' }],
+    },
   },
 });

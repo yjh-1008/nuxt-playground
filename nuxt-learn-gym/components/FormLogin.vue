@@ -30,17 +30,16 @@ const form = ref({
 });
 const error = ref<Error | null>(null);
 const loading = ref(false);
-const { signIn } = useAuth();
-const handleLoginSubmit = () => {
+const { signIn } = useAuthStore();
+const handleLoginSubmit = async () => {
   try {
     error.value = null;
     loading.value = true;
 
     // login business logic
-    signIn(form.value.email, form.value.password);
+    await signIn(form.value.email, form.value.password);
     emit('success');
   } catch (err: unknown) {
-    console.log(err);
     if (err instanceof Error) {
       error.value = err;
     } else {

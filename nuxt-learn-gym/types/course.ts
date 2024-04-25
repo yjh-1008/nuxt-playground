@@ -17,7 +17,7 @@ export interface Course {
 
 export interface CourseWithPath
   extends Omit<Course, 'rating' | 'reviewsCount' | 'studentCount'> {
-  rating: string;
+  rating: number | string;
   reviewsCount: string;
   studentCount: string;
   path: string;

@@ -2,17 +2,26 @@
   <q-layout view="hHh lpR fFf" class="bg-grey-2">
     <q-header elevated class="bg-dark text-white">
       <q-separator dark vertical />
-      <NuxtLink
-        v-if="!isAuthenticated"
-        v-slot="{ navigate }"
-        custom
-        to="/login"
-      >
-        <q-btn stretch flat :label="$t('login')" no-caps @click="navigate()" />
-      </NuxtLink>
-      <NuxtLink v-else custom to="/">
-        <q-btn stretch flat :label="$t('logout')" no-caps @click="signOut" />
-      </NuxtLink>
+      <ClientOnly>
+        <NuxtLink
+          v-if="!isAuthenticated"
+          v-slot="{ navigate }"
+          custom
+          to="/login"
+        >
+          <q-btn
+            stretch
+            flat
+            :label="$t('login')"
+            no-caps
+            @click="navigate()"
+          />
+        </NuxtLink>
+        <NuxtLink v-else custom to="/">
+          <q-btn stretch flat :label="$t('logout')" no-caps @click="signOut" />
+        </NuxtLink>
+      </ClientOnly>
+
       <!-- <q-toolbar>
         <q-toolbar-title>Vue Master Course</q-toolbar-title>
         <q-separator dark vertical />
@@ -67,28 +76,32 @@
       </q-toolbar> -->
     </q-header>
     <q-page-container :style="pageContainerStyle">
-      <q-banner v-if="isAuthenticated" class="bg-primary text-white">
-        {{ authUser }}
-      </q-banner>
+      <ClientOnly>
+        <q-banner v-if="isAuthenticated" class="bg-primary text-white">
+          {{ authUser }}
+        </q-banner>
+      </ClientOnly>
+
       <slot></slot>
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-const { authUser, isAuthenticated } = useAuthUser();
-const { signOut } = useAuth();
+const authStore = useAuthStore();
+const { user: authUser, isAuthenticated } = storeToRefs(authStore);
+const { signOut } = authStore;
 const pageContainerStyle = computed(() => ({
   maxWidth: '1080px',
   margin: '0 auto',
 }));
 
-const moveYoutube = async () => {
-  await navigateTo('https://youtube.com/@gymcoding', {
-    external: true,
-    open: { target: '_blank' },
-  });
-};
+// const moveYoutube = async () => {
+//   await navigateTo('https://youtube.com/@gymcoding', {
+//     external: true,
+//     open: { target: '_blank' },
+//   });
+// };
 
 interface Language {
   name: string;

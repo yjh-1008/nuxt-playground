@@ -13,14 +13,17 @@
     "lint-prettier": "prettier --write \"**/*.(ts|tsx|vue|js|json)\""
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "@quasar/extras": "^1.16.9",
     "nuxt": "^3.11.0",
+    "pinia": "^2.1.7",
     "quasar": "^2.15.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",
