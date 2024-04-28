@@ -7,7 +7,10 @@ export default (url: string) => {
         console.log('request',request);
     },
     onRequestError({ request, options }) {
-        console.log(request);
+      throw createError({
+        statusCode:401,
+        statusMessage: "에러 발생" 
+      })
     },
     onResponseError({ request, response, options }) {
         console.log(response);

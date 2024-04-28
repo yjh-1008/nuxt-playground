@@ -1,6 +1,6 @@
 <template>
   <div class="champion-view">
-      <CommonInput v-model="searchText" placeholder="챔피언 명을 입력해주세요." />
+      <SearcgUboyt v-model="searchText" placeholder="챔피언 명을 입력해주세요." />
     <div class="champ-wrapper">
       <div class="champion-container">
         <template v-for="champ in filterData" :key="champ.id">
@@ -16,7 +16,6 @@
 
 <script lang="ts" setup>
 import {type ChampInfoJSON, type Champion} from '@/utils/types/champions';
-import CommonInput from '~/components/CommonInput.vue';
 class Skill {
   q: string;
   w: string;

@@ -2,9 +2,10 @@
   <div class="app">
     <main class="main">
       <div class="search-container">
-        <CommonInput v-model="searchText" @on-search="onSearch" placeholder="소환사 명과 태그를 입력해주세요. ex) hide on bush-KR1"/>
-        <!-- <div>{{ data === null? '' : data }}</div> -->
+        <SearchInput v-model="searchText" @on-search="onSearch" placeholder="소환사 명과 태그를 입력해주세요. ex) hide on bush-KR1"/>
+        <RotationSlider/>
       </div>
+
     </main>
 
   </div>
@@ -12,7 +13,6 @@
 
 <script setup lang="ts">
 import { useAsyncData, useRuntimeConfig } from 'nuxt/app';
-import CommonInput from '@/components/CommonInput.vue';
 import useApi from "@/utils/composables/useApi";
 import {useUserStore} from '@/stores/userStore';
 import {createInstance} from '@/utils/riotApis/index';
@@ -51,9 +51,16 @@ const onSearch = async() => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .main {
   width: 100%;
   height: 100vh;
+  .search-container {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(60,60,136,1) 35%, rgba(0,212,255,1) 100%);
+    height: 400px;
+    /* box-sizing: bord?er-box; */
+    position: relative;
+    padding-block: 50px;
+  }
 }
 </style>

@@ -103,19 +103,19 @@ const pageContainerStyle = computed(() => ({
 //   });
 // };
 
-interface Language {
-  name: string;
-  code: 'en' | 'ko';
-}
+// interface Language {
+//   name: string;
+//   code: 'en' | 'ko';
+// }
 
-const languages = ref<Language[]>([
-  { name: 'English', code: 'en' },
-  { name: '한국어', code: 'ko' },
-]);
+// const languages = ref<Language[]>([
+//   { name: 'English', code: 'en' },
+//   { name: '한국어', code: 'ko' },
+// ]);
 
-const { locale } = useI18n();
+// const { locale } = useI18n();
 
-const selectedLanguageName = computed(
-  () => languages.value.find((lang) => lang.code === locale.value)?.name,
-);
+// const selectedLanguageName = computed(
+//   () => languages.value.find((lang) => lang.code === locale.value)?.name,
+// );
 </script>

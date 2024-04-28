@@ -36,6 +36,7 @@ const text = computed({
 }
 .search-input {
   min-width: 350px;
+
   width: 450px;
   height: 40px;
   font-size: 1rem;
