@@ -1,27 +1,73 @@
 <template>
-  <div class="champ-card">
-    <img src="" alt="챔피언"/>
-    <div class="info">
-      <div>스카너</div>
-      <div>포지션 : 탑</div>
-    </div>
+  <div ref="cardRef" class="champ-card active">
+    <div>test {{ position
+    
+    }}</div>
   </div>
 </template>
 
 <script lang="ts" setup>
+const props = defineProps<{
+  position: number,
+  cur: number,
+  angle: number,
+  test1: number,
+}>()
+const ratateAngle = 360 / 10;
 
+
+const cardRef = ref();
+
+const rotate = () => {
+
+  if((props.position+props.cur+4)%9 === 0) {
+    console.log(props.position, props.cur, props.test1)
+    cardRef.value.style.transform = ` rotateY(0deg) translateZ(288px)`;
+    cardRef.value.style.opacity = 1;
+  } else if ((props.position+props.cur+4)%9 === 1) {
+    cardRef.value.style.transform = `translateZ(288px) translateX(200px)`
+    cardRef.value.style.opacity = 1;
+  } else if((props.position+props.cur+4)%9 === 2) {
+    cardRef.value.style.transform = `translateZ(288px) translateX(400px)`
+    cardRef.value.style.opacity = 1;
+  }else if((props.position+props.cur+4)%9 === 8) {
+    cardRef.value.style.transform = ` translateZ(288px) translateX(-200px)`
+    cardRef.value.style.opacity = 1;
+  } else if((props.position+props.cur+4)%9 === 7) {
+    cardRef.value.style.transform = ` translateZ(288px) translateX(-400px)`
+    cardRef.value.style.opacity = 1;
+  } else {
+    cardRef.value.style.opacity = 0;
+  }
+}
+
+
+onMounted(() => {
+  rotate();
+
+})
+
+watch(() => props.cur, (c:number)=> {
+  rotate();
+  // console.log(c);
+})
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .champ-card {
-  height: 500px;
-  width: 600px;
-  border: 1px solid red;
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  .info {
-    color: white;
-
-  }
+  position: absolute;
+  /* 셀 배치를 약간씩 떨어뜨림*/
+  width: 190px;
+  height: 120px ;
+  transition: all .5s;
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: all .5s;
+  /* transform: d(ratateAngle)deg) rotateZ(v-bind(colTz)deg); */
 }
 </style>
