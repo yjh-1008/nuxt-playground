@@ -6,7 +6,7 @@
       <div class="container">
      
         <div ref="carousel" class="card-wrapper">
-          <template v-for="(c, idx1) in arr" :key="c">
+          <template v-for="(c, idx1) in rotationChamps" :key="c">
            <MyButton :position="idx1" :test1="c" :cur="idx"  :angle="angle" />
           </template>
         </div>
@@ -22,12 +22,14 @@ const MyButton = resolveComponent('RotationChampCard')
 const MyButton1 = resolveComponent('ChampCard')
 const cardWrapper = ref();
 const arr = ref<any>([0,1,2,3,4,5,6,7,8]);
+
 const onPrev = () => {
   if(idx.value < 0) idx.value = 8;
   else idx.value-=1;
 }
 const ratateAngle = 360 / 10;
 const carousel = ref();
+const {data:rotationChamps} = useFetch('/api/rotationChamp')
 // Math.tan를 사용 => 각도를 라디안 값으로 변환
 const radian = (ratateAngle / 2) * Math.PI / 180;
 const angle = ref<number>(0);
@@ -50,6 +52,7 @@ img {
   top: 200px;
   width: 100vw;
   display: flex;
+  overflow:hidden; 
   button:nth-child(1) {
     position: absolute;
     width: 100px;
@@ -80,7 +83,7 @@ img {
     position: relative;
     /* 원근감을 위해 */
     perspective: 1000px;
-
+    /* */
     margin: 0 auto;
     .card-wrapper {
       width: 100%;

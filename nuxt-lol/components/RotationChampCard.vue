@@ -41,6 +41,7 @@ const rotate = () => {
   }
 }
 
+const info = useFetch(`/api/champInfo?id=${props.test1}`)
 
 onMounted(() => {
   rotate();
