@@ -11,7 +11,8 @@ export interface Champion {
   readonly title: string,
   readonly version: string,
   readonly skins? : Array<SkinInfo>,
-  readonly spells: Array<any>,
+  readonly spells: Array<Object>,
+  readonly passive: Skill
 }
 
 interface SkinInfo {
@@ -65,7 +66,7 @@ export interface DetailChampInfo {
 }
 
 
-interface Skill {
+export interface Skill {
   description: string,
   image: Image,
   name: string,

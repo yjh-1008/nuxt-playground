@@ -5,16 +5,41 @@
       <font-awesome-icon @click="onPrev" class="left-arrow-btn" icon="fa-chevron-left" />
     </ClientOnly>
 
-    <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy />
+    <div class="skin-wrapper">
+      <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy />
+      <div class="name" v-if="champ1 && champ1.skins !== undefined">
+        {{ champ1.skins[skinIdx.idx].name === 'default' ? champ1.name : champ1.skins[skinIdx.idx].name  }}
+      </div>
+    </div>
     <ClientOnly>
       <font-awesome-icon class="right-arrow-btn" icon="fa-chevron-right" @click="onNext"/>
     </ClientOnly>
     </div>
-    <div v-if="champ1">
+    <div class="champ-info" v-if="champ1">
       <div class="title">{{ champ1.name }}</div>
-      <template v-for="spell in champ1.spells">
-        <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" lazy />
-      </template>
+      <div class="skill-wrapper">
+        <img :src="`${DEFAULT_PASSIVE_URI}/${champ1.passive.image.full}`" lazy @mouseover="onSkillOver(champ1.passive)" @mouseleave="champTooltipState=false" />
+        <template v-for="spell in champ1.spells">
+          <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" lazy @mouseover="onSkillOver(spell)" @mouseleave="champTooltipState=false" />
+        </template>
+        <ChampTooltip v-if="champTooltipState" :info="champSpellInfo" />
+      </div>
+      <div class="tip-container" v-if="champ1.allytips.length && champ1.enemytips.length">
+        <div>
+          <div>챔피언 팁</div>
+          <template v-for="tip in champ1.allytips" :key="tip">
+             <div>{{ tip }}</div>
+          </template>
+        </div>
+        <div style="margin-right: 10px;">
+          <div>챔피언 상대할때 팁</div>
+          <template v-for="tip in champ1.enemytips" :key="tip">
+             <div>{{ tip }}</div>
+          </template>
+        </div>
+      </div>
+      <div class="champ-stroy">{{ champ?.blurb }}</div>
+
     </div>
   </div>
 </template>
@@ -34,8 +59,15 @@ const skinIdx = ref<{idx:number, num:number}>({
   idx:0,
   num:0,
 });
+const champSpellInfo = ref();
+const champTooltipState = ref<boolean>(false);
+const onSkillOver = (item: Object) => {
+  champSpellInfo.value= item;
+  champTooltipState.value = true;
+}
 const DEFAULT_SKIN_URI = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading'
 const DEFAULT_SPELL_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/spell';
+const DEFAULT_PASSIVE_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/passive';
 watch(() => props.champ, async (cur:Champion | undefined) => {
   if(typeof cur !== undefined) {
    
@@ -83,26 +115,13 @@ const onNext = () => {
 </script>
 
 <style scoped lang="scss">
-/* div {
-  height: 100%;
-  width: 300px;
-  div {
-    position: relative;
-    height: 100%;
-    .name {
-      background-color: gray;
-      color: white;
-      position : absolute;
-      bottom : 0;
-    }
-  }
-} */
 
 .skin-slider {
   display: flex;
   justify-content: center;
   align-items: center;
   width:100%;
+  height: 100%;
   img {
     width: 200px;
   }
@@ -126,4 +145,56 @@ const onNext = () => {
   text-align: center;
   flex-grow:3;
 }
+
+.champ-info{
+  img {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+  }
+  .skill-wrapper {
+    position: relative;
+  }
+  .champ-stroy {
+    background-color: #31313C;
+    color: white;
+    min-height: 120px;
+    padding: 10px;
+  }
+  .tip-container {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    >   div {
+      background-color: #31313C;
+      height: 150px;
+
+      padding: 10px;
+      flex-grow: 1;
+    }
+
+  }
+}
+
+.skin-wrapper {
+  position: relative;
+  .name {
+    position: absolute;
+    bottom: 0;
+    opacity: 0.7;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+    padding-block: 5px;
+    border-radius: 5px;
+  }
+}
+
+
 </style>
