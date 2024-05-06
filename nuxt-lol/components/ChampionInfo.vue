@@ -1,7 +1,7 @@
 <template>
   <!-- TODO : 챔피언 클릭시 해당 챔피언 상세보기 페이지로 이동 -->
-  <div class="item" @click="emtis('onClick')">
-    <img style="width:60px; height: 60px" :src="imageURL" />
+  <div class="item">
+    <img style="width:60px; height: 60px" :src="imageURL" lazy />
     <div class="name">  {{ info.name }}</div>
   </div>
 </template>
@@ -14,6 +14,7 @@ const props = defineProps<{
 }>();
 const router = useRouter();
 const imageURL = computed(() => `https://ddragon.leagueoflegends.com/cdn/14.2.1/img/champion/${props.info.image.full}`);
+
 
 const onChampClick = () => {
   router.push(`champions/${props.info.id}`);

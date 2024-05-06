@@ -10,6 +10,15 @@ export interface Champion {
   readonly tags: Array<string>,
   readonly title: string,
   readonly version: string,
+  readonly skins? : Array<SkinInfo>,
+  readonly spells: Array<any>,
+}
+
+interface SkinInfo {
+  chromas:boolean,
+  id: string,
+  name: string,
+  num: number
 }
 
 export interface ChampInfoJSON {
@@ -31,7 +40,7 @@ export interface Image{
 
 interface ChampInfo {
   readonly attack: number,
-  readonly defence: number,
+  readonly defense: number,
   readonly difficulty: number,
   readonly magic: number,
 }

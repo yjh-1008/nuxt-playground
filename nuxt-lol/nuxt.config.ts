@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { 
     enabled: true,
   },
-  css: ['@/assets/css/basic_set.css'],
+  css: ['@/assets/css/basic_set.css','@fortawesome/fontawesome-svg-core/styles.css'],
   modules: ['@pinia/nuxt'],
   routeRules: {
     '/api/**' :{cors: true},
