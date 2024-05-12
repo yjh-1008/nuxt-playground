@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading-component></loading-component>
+    <!-- <loading-component></loading-component> -->
     <HeaderComponent />
     <NuxtLayout>
       <NuxtPage />

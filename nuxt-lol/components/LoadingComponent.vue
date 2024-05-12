@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-wrapper" v-show="loadingStore.$state.loaingState">
+  <div class="loading-wrapper" v-show="loaingState">
     <div class="loading-circle">
     </div>
     <div class="loading-icon">
@@ -10,16 +10,16 @@
 <script lang="ts" setup>
 import {useLoadingStore} from '@/stores/useLoadingStore';
 const loadingStore = useLoadingStore();
-console.log(loadingStore.$state.loaingState);
+const {loaingState} = storeToRefs(loadingStore);
 </script>
 
 <style lang="scss">
 /* import poroIcon from '' */
 .loading-wrapper {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(211, 211, 211, 0.3);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(211, 211, 211,0.9);
   z-index: 10;
   display: flex;
   justify-content: center;

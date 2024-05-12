@@ -24,6 +24,9 @@ const onChampClick = () => {
 <style scoped>
 .name {
   color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .item{

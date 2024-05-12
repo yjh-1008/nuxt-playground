@@ -1,12 +1,12 @@
 <template>
-  <div style="display: grid;width: 100%; grid-template-columns: 250px 1fr;">
+  <div class="info_card">
     <div class="skin-slider">
-      <ClientOnly>
+    <ClientOnly>
       <font-awesome-icon @click="onPrev" class="left-arrow-btn" icon="fa-chevron-left" />
     </ClientOnly>
 
     <div class="skin-wrapper">
-      <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy />
+      <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy/>
       <div class="name" v-if="champ1 && champ1.skins !== undefined">
         {{ champ1.skins[skinIdx.idx].name === 'default' ? champ1.name : champ1.skins[skinIdx.idx].name  }}
       </div>
@@ -16,31 +16,32 @@
     </ClientOnly>
     </div>
     <div class="champ-info" v-if="champ1">
-      <div class="title">{{ champ1.name }}</div>
+      <div class="title">{{ champ1.name }}: {{ champ1.title }}</div>
       <div class="skill-wrapper">
-        <img :src="`${DEFAULT_PASSIVE_URI}/${champ1.passive.image.full}`" lazy @mouseover="onSkillOver(champ1.passive)" @mouseleave="champTooltipState=false" />
+        <img :src="`${DEFAULT_PASSIVE_URI}/${champ1.passive.image.full}`" @mouseover="onSkillOver(champ1.passive)" @mouseleave="champTooltipState=false" />
         <template v-for="spell in champ1.spells">
-          <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" lazy @mouseover="onSkillOver(spell)" @mouseleave="champTooltipState=false" />
+          <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" @mouseover="onSkillOver(spell)" @mouseleave="champTooltipState=false" />
         </template>
         <ChampTooltip v-if="champTooltipState" :info="champSpellInfo" />
       </div>
       <div class="tip-container" v-if="champ1.allytips.length && champ1.enemytips.length">
         <div>
-          <div>챔피언 팁</div>
+          <div style="margin-bottom: 5px">챔피언 팁</div>
           <template v-for="tip in champ1.allytips" :key="tip">
-             <div>{{ tip }}</div>
+             <div>-&nbsp;{{ tip }}</div>
           </template>
         </div>
         <div style="margin-right: 10px;">
-          <div>챔피언 상대할때 팁</div>
+          <div style="margin-bottom: 5px">챔피언 상대할때 팁</div>
           <template v-for="tip in champ1.enemytips" :key="tip">
-             <div>{{ tip }}</div>
+             <div>-&nbsp;{{ tip }}</div>
           </template>
         </div>
       </div>
       <div class="champ-stroy">{{ champ?.blurb }}</div>
 
     </div>
+    <LoadingComponent />
   </div>
 </template>
 
@@ -52,7 +53,8 @@ const props = withDefaults(defineProps<{
 }>(), {
   champ: undefined,
 })
-
+const loadingStore = useLoadingStore();
+const {loaingState} = storeToRefs(loadingStore);
 const champImgURI = ref<string>();
 const champ1 = ref<Champion>();
 const skinIdx = ref<{idx:number, num:number}>({
@@ -69,8 +71,9 @@ const DEFAULT_SKIN_URI = 'https://ddragon.leagueoflegends.com/cdn/img/champion/l
 const DEFAULT_SPELL_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/spell';
 const DEFAULT_PASSIVE_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/passive';
 watch(() => props.champ, async (cur:Champion | undefined) => {
+  loaingState.value = true;
   if(typeof cur !== undefined) {
-   
+
     if(cur !== undefined) {
       champImgURI.value = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${cur.id}_0.jpg`
       const response = await $fetch(`https://ddragon.leagueoflegends.com/cdn/14.9.1/data/ko_KR/champion/${cur.id}.json`) as any;
@@ -83,7 +86,10 @@ watch(() => props.champ, async (cur:Champion | undefined) => {
         }
       }
       
-    }  
+    } 
+    setTimeout(() => {
+      loaingState.value = false; 
+    },500)
   }
 })
 
@@ -116,6 +122,15 @@ const onNext = () => {
 
 <style scoped lang="scss">
 
+.info_card{
+  width: 100%;
+  grid-template-columns: 250px 1fr;
+  position: relative;
+  height: 100%;
+  align-items: center;
+  display:grid
+}
+
 .skin-slider {
   display: flex;
   justify-content: center;
@@ -142,16 +157,22 @@ const onNext = () => {
   color: white;
   font-size: 1.5rem;
   font-weight: 900; 
-  text-align: center;
+  text-align: left;
+  margin-bottom: 30px;
   flex-grow:3;
 }
 
 .champ-info{
+  margin-left: 20px;
   img {
     width: 50px;
     height: 50px;
+  }
+
+  img+img {
     margin-left: 10px;
   }
+
   .skill-wrapper {
     position: relative;
   }
@@ -164,15 +185,15 @@ const onNext = () => {
   .tip-container {
     display: flex;
     width: 100%;
-    padding: 10px;
+
     color: white;
     gap: 20px;
     justify-content: center;
     align-items: center;
+    margin-block: 10px;
     >   div {
+      height: 100px;
       background-color: #31313C;
-      height: 150px;
-
       padding: 10px;
       flex-grow: 1;
     }

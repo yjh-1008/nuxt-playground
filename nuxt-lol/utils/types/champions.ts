@@ -12,7 +12,9 @@ export interface Champion {
   readonly version: string,
   readonly skins? : Array<SkinInfo>,
   readonly spells: Array<Object>,
-  readonly passive: Skill
+  readonly passive: Skill,
+  readonly enemytips: string,
+  readonly allytips: string,
 }
 
 interface SkinInfo {
