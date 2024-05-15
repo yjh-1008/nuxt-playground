@@ -1,6 +1,10 @@
 <template>
   <div class="tooltip">
-    {{ info.description }}
+    <div class="name">{{ info.name }}</div>
+    <div>
+      {{ info.description }}
+    </div>
+    
   </div>
 </template>
 
@@ -14,8 +18,14 @@ const props = defineProps<{
 .tooltip {
   position: absolute;
   width: 400px;
-  background: gray;
+  background: #242424;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 1%;
   color: white;
   top: 60px;
+  .name {
+    color: #fda50a
+  }
 }
 </style>

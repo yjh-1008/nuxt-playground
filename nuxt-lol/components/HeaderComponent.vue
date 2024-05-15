@@ -2,7 +2,7 @@
   <header>
     <NuxtLink class="item" activeClass="active" to="/">Home</NuxtLink>
     <NuxtLink class="item" activeClass="active" to="/champions">챔피언</NuxtLink>
-    <NuxtLink class="item" activeClass="active" to="/">챔피언 티어</NuxtLink>
+    <NuxtLink class="item" activeClass="active" to="/rank?tier=123">랭킹</NuxtLink>
     <NuxtLink class="item" activeClass="active" to="/">통계</NuxtLink>
   </header>
 </template>

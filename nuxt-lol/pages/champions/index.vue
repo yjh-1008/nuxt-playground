@@ -126,7 +126,6 @@ const detailChampInfo = async () => {
   border:1px solid black;
   background-color: #31313C;
   overflow-y: auto;
-  height: 50vh;
   display: grid;
   place-items: center;
   grid-template-columns: repeat(4, 1fr);
@@ -137,11 +136,11 @@ const detailChampInfo = async () => {
 
 .champ-wrapper {
   display: grid;  
+  grid-template-rows: 40vh;
   grid-template-columns: 400px 1fr;
 }
 
 .detail_champ_info {
-  height: 50vh;
   border: 1px solid black;
   padding: 10px;
 }

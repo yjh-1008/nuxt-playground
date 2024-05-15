@@ -6,7 +6,7 @@
     </ClientOnly>
 
     <div class="skin-wrapper">
-      <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy/>
+      <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`"/>
       <div class="name" v-if="champ1 && champ1.skins !== undefined">
         {{ champ1.skins[skinIdx.idx].name === 'default' ? champ1.name : champ1.skins[skinIdx.idx].name  }}
       </div>
@@ -19,8 +19,11 @@
       <div class="title">{{ champ1.name }}: {{ champ1.title }}</div>
       <div class="skill-wrapper">
         <img :src="`${DEFAULT_PASSIVE_URI}/${champ1.passive.image.full}`" @mouseover="onSkillOver(champ1.passive)" @mouseleave="champTooltipState=false" />
-        <template v-for="spell in champ1.spells">
-          <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" @mouseover="onSkillOver(spell)" @mouseleave="champTooltipState=false" />
+        <template v-for="(spell, idx) in champ1.spells">
+          <div class="skill">
+            <img :src="`${DEFAULT_SPELL_URI}/${spell.id}.png`" @mouseover="onSkillOver(spell)" @mouseleave="champTooltipState=false"  lazy/>
+          <div class="skill-key">{{ skillKey[idx] }}</div>
+          </div>
         </template>
         <ChampTooltip v-if="champTooltipState" :info="champSpellInfo" />
       </div>
@@ -67,6 +70,7 @@ const onSkillOver = (item: Object) => {
   champSpellInfo.value= item;
   champTooltipState.value = true;
 }
+const skillKey:string[] = ['q','w','e','r']
 const DEFAULT_SKIN_URI = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading'
 const DEFAULT_SPELL_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/spell';
 const DEFAULT_PASSIVE_URI = 'https://ddragon.leagueoflegends.com/cdn/14.9.1/img/passive';
@@ -164,22 +168,41 @@ const onNext = () => {
 
 .champ-info{
   margin-left: 20px;
-  img {
+  .skill {
     width: 50px;
     height: 50px;
-  }
-
-  img+img {
-    margin-left: 10px;
+    position: relative;
+    .skill-key {
+      width: 15px;
+      opacity: 0.8;
+      text-align: center;
+      background-color: #373737;
+      position: absolute;
+      right:0px;
+      bottom:0;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
 
   .skill-wrapper {
     position: relative;
+    display: flex;
+    gap: 10px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
   }
   .champ-stroy {
     background-color: #31313C;
+    border-radius: 15px;
+    border: 1px solid white;
+    margin-block: 10px;
     color: white;
-    min-height: 120px;
+    height: 50px;
+    /* min-height: 120px; */
     padding: 10px;
   }
   .tip-container {
@@ -193,6 +216,8 @@ const onNext = () => {
     margin-block: 10px;
     >   div {
       height: 100px;
+      border: 1px solid white;
+      border-radius: 15px;
       background-color: #31313C;
       padding: 10px;
       flex-grow: 1;
@@ -216,6 +241,7 @@ const onNext = () => {
     border-radius: 5px;
   }
 }
+
 
 
 </style>
