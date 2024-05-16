@@ -6,8 +6,9 @@
         {{ rt }}
       </div>
     </div>
-    <CommonSelect :items="RANK_ITEMS" />
-    <div>
+    <CommonSelect :items="RANK_ITEMS" v-model="rank" />
+    <CommonSelect v-if="isLowTier" :items="TIER_STEPS" v-model="rankStep" />
+    <div class="rank-info">
       <div>#</div>
       <div>소환사</div>
       <div>티어</div>
@@ -40,15 +41,19 @@ const {data} = await useFetch('/api/rank',{
 
 const RANK_ITEMS: Items[] = [
   {
+    value: 'all',
+    name: 'all',
+  },
+  {
     value: 'challengerleagues',
     name: 'Challenger',
   },
   {
-    value: 'GrandMaster',
+    value: 'grandmasterleagues',
     name: 'GrandMaster',
   },
   {
-    value: 'Master',
+    value: 'masterleagues',
     name: 'Master',
   },
   {
@@ -81,6 +86,31 @@ const RANK_ITEMS: Items[] = [
   },
 ]
 
+const TIER_STEPS:Items[] = [
+  {
+    value: '4',
+    name :'Ⅳ',
+  }, 
+  {
+    value: "3",
+    name:'Ⅲ'
+  },
+  {
+    value: '2',
+    name: 'Ⅱ',
+  },
+  {
+    value: '1',
+    name: 'Ⅰ',
+  }
+]
+
+const rank = ref<string>(RANK_ITEMS[0].value);
+const rankStep = ref<string>('4')
+const isLowTier = computed<boolean>(() =>  {
+  const findIdx = RANK_ITEMS.findIndex((item) => item.value === rank.value);
+  return findIdx > 3;
+})
 const onRankTpClick = (tp: string) => {
   rankTp.value = tp;
 }
@@ -119,5 +149,18 @@ const onRankTpClick = (tp: string) => {
     padding: 5px;
     border-radius: 5px;
   }
+}
+
+.rank-info {
+  display: flex;
+  width: 50%;
+  min-width: 1000px;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #28344E;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  margin: 0 auto;
 }
 </style>
