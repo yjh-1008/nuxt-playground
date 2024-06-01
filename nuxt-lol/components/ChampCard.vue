@@ -5,12 +5,22 @@
       <font-awesome-icon @click="onPrev" class="left-arrow-btn" icon="fa-chevron-left" />
     </ClientOnly>
 
-    <div class="skin-wrapper">
+    <template v-for="(skin, idx) in champ1?.skins" :key="skin.name">
+      {{ idx }}
+    <div class="skin-wrapper" v-show="idx===skinIdx.idx">
+        <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`" lazy/>
+        <div class="name" v-if="champ1 && champ1.skins !== undefined">
+          {{ skin.name === 'default' ? champ1.name : skin.name  }}
+        </div>
+    </div>
+  </template> 
+
+    <!-- <div class="skin-wrapper">
       <img :src="`${DEFAULT_SKIN_URI}/${champ1?.id}_${skinIdx.num}.jpg`"/>
       <div class="name" v-if="champ1 && champ1.skins !== undefined">
         {{ champ1.skins[skinIdx.idx].name === 'default' ? champ1.name : champ1.skins[skinIdx.idx].name  }}
       </div>
-    </div>
+    </div> -->
     <ClientOnly>
       <font-awesome-icon class="right-arrow-btn" icon="fa-chevron-right" @click="onNext"/>
     </ClientOnly>
@@ -202,7 +212,7 @@ const onNext = () => {
     margin-block: 10px;
     color: white;
     height: 50px;
-    /* min-height: 120px; */
+    overflow-y: scroll;
     padding: 10px;
   }
   .tip-container {
@@ -211,16 +221,18 @@ const onNext = () => {
 
     color: white;
     gap: 20px;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     margin-block: 10px;
-    >   div {
+    >  div {
       height: 100px;
       border: 1px solid white;
       border-radius: 15px;
       background-color: #31313C;
+      overflow-y: scroll;
       padding: 10px;
-      flex-grow: 1;
+      max-width: 45%;
+      /* flex-grow: 2; */
     }
 
   }
@@ -228,6 +240,7 @@ const onNext = () => {
 
 .skin-wrapper {
   position: relative;
+  display: flex;
   .name {
     position: absolute;
     bottom: 0;
