@@ -8,21 +8,18 @@
 
 <script lang="ts" setup>
 const positions:string[] = ['전체','탑','정글','미드','바텀','서폿'];
-interface PositionTags {
-
-}
 
 const cur = defineModel<string>();
 
 const onClick = (idx: number) => {
   cur.value = positions[idx];
-  console.log('cur',positions[idx], idx);
 }
 </script>
 
 <style scoped lang=scss>
 .position-selector {
   background-color: #d3d3d3;
+  height: 700px;
   display: flex;
   gap: 10px;
   justify-content: space-evenly;

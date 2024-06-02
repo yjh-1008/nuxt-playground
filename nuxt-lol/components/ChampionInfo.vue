@@ -31,7 +31,7 @@ const onChampClick = () => {
 
 .item{
   width: 60px;
-  height: 70px;
+  height:100px;
   align-items: center;
   cursor: pointer;
   /* justify-content: right; */

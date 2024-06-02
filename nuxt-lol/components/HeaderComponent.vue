@@ -18,15 +18,13 @@ header {
   justify-content: center;
   align-items: center;
   height: 50px;
-  gap: 1%;
-  padding: 5px;
-  min-width: 1000px;
+  gap: 100px;
+  /* width:100vw; */
   background-color: rgb(33 58 150);
 }
 
 .item{
   color: white;
-  padding: 10px;
   border-radius: 25%;
 }
 

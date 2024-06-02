@@ -8,12 +8,13 @@
             <ChampionInfo @click="onChampClick(champ)" :info="champ"></ChampionInfo>
           </template>
         </div>
-      </ClientOnly>
-    
-      <div class="detail_champ_info">
+        <div class="detail_champ_info">
           <ChampCard v-show="selectChamp" :champ="selectChamp" />
           <EmptyChampCard v-show="!selectChamp"/>
-      </div>
+        </div>
+      </ClientOnly>
+
+    
     </div>
   </div>
 </template>
@@ -51,12 +52,17 @@ const positionTags:PosRecord = {
 const selectChamp = ref<Champion>();
 
 const onChampClick = (champ:Champion) => {
-  selectChamp.value = champ;
+  selectChamp.value = undefined;
+  setTimeout(() => {
+    selectChamp.value = champ;
+  }, 700);
+
 }
 
 const position = ref<string>('전체');
 
 watch(position,(cur:string) => {
+  selectChamp.value = undefined;
   if(cur === '전체') {
     filterData.value = champs.value;
     return;
@@ -70,7 +76,6 @@ watch(position,(cur:string) => {
   })
 })
 
-const config = useRuntimeConfig();
 const champSort = (a:Champion, b:Champion) => {
   return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
 };
@@ -86,43 +91,17 @@ const {data:champs, error, refresh, status} = await useAsyncData<Champion[]>('ch
  },
 )
 
-
-
-const searchText = ref<string>('');
-const onSearch = () => {
-  
-}
-
-const detailChampInfo = async () => {
-  try {
-    const {data}:any = await $fetch(`https://ddragon.leagueoflegends.com/cdn/14.2.1/data/ko_KR/champion/Garen.json`);
-    console.log(data);
-    // champInfo.value = data[`${route.params.id}`];
-    // imageURL.value = `https://ddragon.leagueoflegends.com/cdn/14.2.1/img/champion/${champInfo.value?.image.full}`;
-
-    // skills.value = champInfo.value?.spells.map(v => {
-    //   // if(v.image === n) return;
-    //   const images: Image = v.image;
-    //   return {
-    //     url: `${runtimeConfig.public.docURL}img/spell/${v.image.full}`,
-    //     description: v.description,
-    //   }
-    // })
-  } catch(err) {
-    console.log(err);
-  }
-}
-
 </script>
 
 <style>
 .champion-view {
   background-color: #28344E;
-  padding: 30px 10%;
-  display: grid;
+
+  min-height: 1000px;
+  overflow-x: hidden;
 }
 .champion-container {
-  display: flex;
+  max-height: 700px;
   border:1px solid black;
   background-color: #31313C;
   overflow-y: auto;
@@ -130,18 +109,20 @@ const detailChampInfo = async () => {
   place-items: center;
   grid-template-columns: repeat(4, 1fr);
   margin-right: 20px;
-  /* ove
-  rflow-x: hidden; */
+
 }
 
 .champ-wrapper {
   display: grid;  
-  grid-template-rows: 40vh;
+  min-height: 800px;
+  align-items: start;
   grid-template-columns: 400px 1fr;
+  margin-inline: 50px;
 }
 
 .detail_champ_info {
   border: 1px solid black;
   padding: 10px;
+  min-height: 700px;
 }
 </style>
